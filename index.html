@@ -68,16 +68,34 @@ section{scroll-margin-top:22px}
 .compare-view .compare-label{pointer-events:none}
 .compare-view img{pointer-events:none;user-select:none;-webkit-user-drag:none}
 
-/* Separate full product shots: these are two differently composed images, not aligned pixels. */
-.compare-view{background:#201b27;isolation:isolate;aspect-ratio:1/1;height:auto;max-height:490px;display:block}
-.compare-view .compare-after,.compare-view .compare-base{position:absolute;top:0;bottom:0;overflow:hidden;display:block;min-width:0;transition:none}
-.compare-view .compare-after{left:0;right:auto;width:var(--pos);clip-path:none;background:#3a2a21}
-.compare-view .compare-base{left:var(--pos);right:0;width:calc(100% - var(--pos));background:#f2eeee}
-.compare-view .compare-after img,.compare-view .compare-base img{display:block;width:100%;height:100%;object-fit:contain;object-position:center;pointer-events:none;user-select:none;-webkit-user-drag:none}
-.compare-view .compare-label{z-index:4;font-weight:650;text-shadow:0 1px 3px #0009}
-.compare-view .compare-label:first-of-type{left:12px}
-.compare-view .split{z-index:5}
-@media(max-width:680px){.compare-view{height:auto;aspect-ratio:1/1;max-height:none}.compare-view .compare-after img,.compare-view .compare-base img{object-fit:contain}}
+
+/* Comparison: show both photos edge-to-edge, with no letterboxing. */
+.compare-view {
+  position:relative; isolation:isolate; overflow:hidden; width:100%;
+  height:auto!important; max-height:none!important;
+  aspect-ratio:1199/1312!important; background:transparent!important;
+  touch-action:pan-y; cursor:ew-resize;
+}
+.compare-view .compare-base,.compare-view .compare-after {
+  position:absolute!important; inset:0!important; display:block!important;
+  width:100%!important; height:100%!important; min-width:0;
+  overflow:hidden; background:transparent!important; transform:none!important;
+}
+.compare-view .compare-base {z-index:0}
+.compare-view .compare-after {
+  z-index:1; clip-path:inset(0 calc(100% - var(--pos)) 0 0)!important;
+  will-change:clip-path;
+}
+.compare-view .compare-base img,.compare-view .compare-after img {
+  position:absolute!important; display:block!important; inset:0!important;
+  width:100%!important; height:100%!important; max-width:none!important;
+  max-height:none!important; object-fit:cover!important;
+  object-position:center center!important; pointer-events:none;
+  user-select:none; -webkit-user-drag:none;
+}
+.compare-view .compare-label {z-index:3;pointer-events:none}
+.compare-view .split {z-index:4}
+
 
 </style>
 <style>
